@@ -4,14 +4,14 @@ import os
 
 def run_command(command, description):
     """Run a command and handle errors"""
-    print(f"\n🔄 {description}...")
+    print(f"\n {description}...")
     try:
         result = subprocess.run(command, shell=True, check=True, 
                               capture_output=True, text=True)
-        print(f"✅ {description} completed successfully!")
+        print(f"description} completed successfully!")
         return True
     except subprocess.CalledProcessError as e:
-        print(f"❌ {description} failed: {e}")
+        print(f" {description} failed: {e}")
         print(f"Error output: {e.stderr}")
         return False
 
@@ -21,11 +21,11 @@ def main():
 
     # Check Python version
     if sys.version_info < (3, 8):
-        print("❌ Python 3.8 or higher is required!")
+        print(" Python 3.8 or higher is required!")
         print(f"Current version: {sys.version}")
         sys.exit(1)
 
-    print(f"✅ Python {sys.version_info.major}.{sys.version_info.minor} detected")
+    print(f"Python {sys.version_info.major}.{sys.version_info.minor} detected")
 
     # Install essential dependencies
     essential_packages = [
@@ -34,14 +34,14 @@ def main():
         "sqlite3"  # Usually built-in
     ]
 
-    print("\n📦 Installing essential packages...")
+    print("\nInstalling essential packages...")
     for package in essential_packages:
         if package == "sqlite3":
             continue  # Skip sqlite3 as it's built-in
 
         if not run_command(f"{sys.executable} -m pip install {package}", 
                           f"Installing {package}"):
-            print(f"⚠️ Failed to install {package}. Alem may not work properly.")
+            print(f"⚠Failed to install {package}. Alem may not work properly.")
 
     # Ask about AI features
     print("\n🧠 AI Features Setup")
