@@ -26,19 +26,19 @@ except ImportError:
 def print_header():
     """Display launcher header"""
     if RICH:
-        console.print(Panel.fit("Alem Launcher", subtitle="v1.0 • Fast • Reliable", style="bold blue"))
+        console.print(Panel.fit("Alem Application Launcher", subtitle="v1.0", style="bold blue"))
     else:
-        print("Alem Launcher v1.0")
-        print("=" * 20)
+        print("Alem Application Launcher v1.0")
+        print("=" * 30)
 
 
 def check_python_version() -> bool:
     """Verify Python version compatibility"""
     if sys.version_info < (3, 8):
         if RICH:
-            console.print(f"[red]❌ Python 3.8+ required. Current: {sys.version.split()[0]}")
+            console.print(f"[red]REQUIREMENT NOT MET: Python 3.8+ required. Current: {sys.version.split()[0]}")
         else:
-            print(f"❌ Python 3.8+ required. Current: {sys.version.split()[0]}")
+            print(f"REQUIREMENT NOT MET: Python 3.8+ required. Current: {sys.version.split()[0]}")
         return False
     return True
 
@@ -62,13 +62,13 @@ def check_dependencies(verbose: bool = False) -> List[str]:
         try:
             if pkg == 'sqlite3':
                 import sqlite3  # Built-in, always available
-                status = "✅ Built-in"
+                status = "Built-in"
             else:
                 __import__(pkg)
-                status = "✅ Available"
+                status = "Available"
         except ImportError:
             missing.append(pkg)
-            status = "❌ Missing"
+            status = "Missing"
         
         if verbose and RICH:
             table.add_row(pkg, status, desc)
@@ -98,9 +98,9 @@ def launch_alem(target: Path, args: List[str], quiet: bool = False) -> bool:
     
     if not quiet:
         if RICH:
-            console.print(f"🚀 Launching [bold]{target.name}[/bold]...")
+            console.print(f"Launching [bold]{target.name}[/bold]...")
         else:
-            print(f"🚀 Launching {target.name}...")
+            print(f"Launching {target.name}...")
     
     try:
         start = time.time()
@@ -109,35 +109,35 @@ def launch_alem(target: Path, args: List[str], quiet: bool = False) -> bool:
         
         if not quiet:
             if RICH:
-                console.print(f"✅ Alem closed normally [dim](ran for {duration:.1f}s)")
+                console.print(f"Application closed normally [dim](runtime: {duration:.1f}s)")
             else:
-                print(f"✅ Alem closed normally (ran for {duration:.1f}s)")
+                print(f"Application closed normally (runtime: {duration:.1f}s)")
         return True
         
     except KeyboardInterrupt:
         if not quiet:
-            print("\n⏹️  Alem interrupted by user")
+            print("\nApplication interrupted by user")
         return True
         
     except subprocess.CalledProcessError as e:
         if RICH:
-            console.print(f"[red]❌ Alem exited with error code {e.returncode}")
+            console.print(f"[red]Application exited with error code {e.returncode}")
         else:
-            print(f"❌ Alem exited with error code {e.returncode}")
+            print(f"Application exited with error code {e.returncode}")
         return False
         
     except FileNotFoundError:
         if RICH:
-            console.print(f"[red]❌ Python interpreter not found: {sys.executable}")
+            console.print(f"[red]Python interpreter not found: {sys.executable}")
         else:
-            print(f"❌ Python interpreter not found: {sys.executable}")
+            print(f"Python interpreter not found: {sys.executable}")
         return False
         
     except Exception as e:
         if RICH:
-            console.print(f"[red]❌ Unexpected error: {e}")
+            console.print(f"[red]Unexpected error: {e}")
         else:
-            print(f"❌ Unexpected error: {e}")
+            print(f"Unexpected error: {e}")
         return False
 
 
@@ -166,44 +166,44 @@ def main():
         if args.check:
             if missing:
                 if RICH:
-                    console.print(f"[red]Missing: {', '.join(missing)}")
+                    console.print(f"[red]Missing dependencies: {', '.join(missing)}")
                 else:
-                    print(f"Missing: {', '.join(missing)}")
+                    print(f"Missing dependencies: {', '.join(missing)}")
                 sys.exit(1)
             else:
                 if RICH:
-                    console.print("[green]✅ All dependencies satisfied")
+                    console.print("[green]All dependencies satisfied")
                 else:
-                    print("✅ All dependencies satisfied")
+                    print("All dependencies satisfied")
                 sys.exit(0)
         
         if missing:
             if RICH:
-                console.print(f"[yellow]⚠️  Missing dependencies: {', '.join(missing)}")
+                console.print(f"[yellow]Missing dependencies: {', '.join(missing)}")
             else:
-                print(f"⚠️  Missing dependencies: {', '.join(missing)}")
+                print(f"Missing dependencies: {', '.join(missing)}")
             
             if args.install:
                 installer = Path(__file__).parent / "install_alem.py"
                 if installer.exists():
                     if RICH:
-                        console.print("🔧 Running installer...")
+                        console.print("Running installer...")
                     else:
-                        print("🔧 Running installer...")
+                        print("Running installer...")
                     subprocess.run([sys.executable, str(installer), "--yes", "--quiet"])
                 else:
                     if RICH:
-                        console.print("[red]❌ install_alem.py not found")
+                        console.print("[red]install_alem.py not found")
                     else:
-                        print("❌ install_alem.py not found")
+                        print("install_alem.py not found")
                     sys.exit(1)
             else:
                 if RICH:
-                    console.print("\n[bold]Quick fix:[/bold]")
+                    console.print("\n[bold]Installation options:[/bold]")
                     console.print("  python install_alem.py --yes")
                     console.print("  [dim]or[/dim] python launch_alem.py --install")
                 else:
-                    print("\nQuick fix:")
+                    print("\nInstallation options:")
                     print("  python install_alem.py --yes")
                     print("  or python launch_alem.py --install")
                 sys.exit(1)
@@ -212,10 +212,10 @@ def main():
     target = find_alem_executable()
     if not target:
         if RICH:
-            console.print("[red]❌ Alem application not found")
+            console.print("[red]Alem application not found")
             console.print("[dim]Expected: Alem.py, alem.py, or main.py")
         else:
-            print("❌ Alem application not found")
+            print("Alem application not found")
             print("Expected: Alem.py, alem.py, or main.py")
         sys.exit(1)
     

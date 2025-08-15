@@ -32,21 +32,20 @@ def eprint(*args, **kwargs):
 
 
 def print_header():
-    title = "Alem Installer"
-    line = "=" * len(title)
+    title = "Alem Package Installer"
     if RICH:
-        console.print(Panel.fit(title, subtitle="Fast, clear, repeatable", style="bold cyan"))
+        console.print(Panel.fit(title, subtitle="Automated dependency management", style="bold blue"))
     else:
         print(title)
-        print(line)
+        print("=" * len(title))
 
 
 def run_command_stream(cmd: List[str], description: str, env=None, quiet: bool = False) -> bool:
     """Run a command and stream stdout/stderr live for progress bars (pip)."""
     if RICH and not quiet:
-        console.rule(f"[bold]🔄 {description}")
+        console.rule(f"[bold]{description}")
     else:
-        print(f"\n🔄 {description}...")
+        print(f"\n{description}...")
 
     start = time.time()
     try:
@@ -61,21 +60,21 @@ def run_command_stream(cmd: List[str], description: str, env=None, quiet: bool =
         duration = time.time() - start
         if ret == 0:
             if RICH and not quiet:
-                console.print(f"✅ {description} [dim](took {duration:.1f}s)")
+                console.print(f"COMPLETED: {description} [dim](duration: {duration:.1f}s)")
             else:
-                print(f"✅ {description} (took {duration:.1f}s)")
+                print(f"COMPLETED: {description} (duration: {duration:.1f}s)")
             return True
         else:
             if RICH and not quiet:
-                console.print(f"[red]❌ {description} failed with exit code {ret}")
+                console.print(f"[red]FAILED: {description} (exit code {ret})")
             else:
-                print(f"❌ {description} failed with exit code {ret}")
+                print(f"FAILED: {description} (exit code {ret})")
             return False
     except Exception as e:
         if RICH and not quiet:
-            console.print(f"[red]❌ {description} failed: {e}")
+            console.print(f"[red]ERROR: {description} - {e}")
         else:
-            print(f"❌ {description} failed: {e}")
+            print(f"ERROR: {description} - {e}")
         return False
 
 
@@ -137,15 +136,15 @@ def main():
     if sys.version_info < (3, 8):
         msg = f"Python 3.8+ required. Current: {sys.version.split()[0]}"
         if RICH:
-            console.print(f"[red]❌ {msg}")
+            console.print(f"[red]REQUIREMENT NOT MET: {msg}")
         else:
-            print(f"❌ {msg}")
+            print(f"REQUIREMENT NOT MET: {msg}")
         sys.exit(1)
 
     if RICH:
-        console.print(f"✅ Python {sys.version_info.major}.{sys.version_info.minor} detected\n", style="green")
+        console.print(f"Python {sys.version_info.major}.{sys.version_info.minor} detected\n", style="green")
     else:
-        print(f"✅ Python {sys.version_info.major}.{sys.version_info.minor} detected")
+        print(f"Python {sys.version_info.major}.{sys.version_info.minor} detected")
 
     # Define package groups
     essential = [
@@ -231,38 +230,38 @@ def main():
 
     total_time = time.time() - started
     if RICH:
-        console.rule("Summary")
-        console.print(f"🎉 Installation phase finished in {total_time:.1f}s")
+        console.rule("Installation Summary")
+        console.print(f"Installation completed in {total_time:.1f} seconds")
     else:
         print("\n" + "=" * 50)
-        print(f"🎉 Installation phase finished in {total_time:.1f}s")
+        print(f"Installation completed in {total_time:.1f} seconds")
 
     # Next steps summary
     if RICH:
         feats = [
             "Modern GUI note-taking interface",
             "SQLite database storage",
-            "Search and filtering",
+            "Search and filtering capabilities",
             "Tag-based organization",
             "Performance monitoring",
         ]
         if args.ai:
             feats.append("AI-powered semantic search")
         else:
-            feats.append("Basic keyword search (AI not installed)")
-        table = Table(title="Features available")
+            feats.append("Basic keyword search")
+        table = Table(title="Available Features")
         table.add_column("Feature")
         for f in feats:
             table.add_row(f)
         console.print(table)
     else:
-        print("\n📚 Features available:")
-        print("• Modern GUI note-taking interface")
-        print("• SQLite database storage")
-        print("• Search and filtering")
-        print("• Tag-based organization")
-        print("• Performance monitoring")
-        print("• AI-powered semantic search" if args.ai else "• Basic keyword search (AI not installed)")
+        print("\nAvailable Features:")
+        print("- Modern GUI note-taking interface")
+        print("- SQLite database storage")
+        print("- Search and filtering capabilities")
+        print("- Tag-based organization")
+        print("- Performance monitoring")
+        print("- AI-powered semantic search" if args.ai else "- Basic keyword search")
 
     # Post-install test (optional)
     auto_test = args.test
@@ -285,9 +284,10 @@ def main():
             run_command_stream([sys.executable, target, "--test"], "Testing Alem GUI", quiet=args.quiet)
 
     if RICH:
-        console.print("\n🚀 To run Alem: [bold]python Alem.py[/bold]\n")
+        console.print("\nTo launch Alem: [bold]python Alem.py[/bold]\n")
     else:
-        print("\n🚀 To run Alem:\n   python Alem.py\n")
+        print("\nTo launch Alem:")
+        print("   python Alem.py\n")
 
 
 if __name__ == "__main__":
