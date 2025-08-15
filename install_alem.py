@@ -44,7 +44,7 @@ def main():
             print(f"⚠Failed to install {package}. Alem may not work properly.")
 
     # Ask about AI features
-    print("\n🧠 AI Features Setup")
+    print("\nAI Features Setup")
     print("Alem can run with basic search or full AI semantic search.")
 
     choice = input("Install AI dependencies? (y/n) [default: n]: ").strip().lower()
