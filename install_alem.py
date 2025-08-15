@@ -75,10 +75,10 @@ def main():
                    f"Installing {package}")
 
     print("\n" + "=" * 50)
-    print("🎉 Alem installation completed!")
-    print("\n🚀 To run Alem:")
+    print(" Alem installation completed!")
+    print("\n To run Alem:")
     print("   python Alem.py")
-    print("\n📚 Features available:")
+    print("\n Features available:")
     print("• Modern GUI note-taking interface")
     print("• SQLite database storage") 
     print("• Search and filtering")
@@ -93,7 +93,7 @@ def main():
     # Test the installation
     test_choice = input("\nTest Alem now? (y/n) [default: n]: ").strip().lower()
     if test_choice in ['y', 'yes']:
-        print("\n🧪 Testing Alem...")
+        print("\n Testing Alem...")
         if run_command(f"{sys.executable} alem.py --test", 
                       "Testing Alem GUI"):
             print("✅ Alem is ready to use!")
