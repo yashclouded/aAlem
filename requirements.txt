@@ -1,0 +1,19 @@
+# Alem Desktop Application Requirements
+# Essential dependencies
+PyQt6>=6.4.0
+numpy>=1.21.0
+
+# Optional AI dependencies (for full semantic search)
+sentence-transformers>=2.2.0
+torch>=1.12.0
+transformers>=4.21.0
+
+# Development and performance monitoring
+memory-profiler>=0.60.0
+psutil>=5.8.0
+
+# Code syntax highlighting
+Pygments>=2.13.0
+
+# Clipboard integration
+pyperclip>=1.8.2
