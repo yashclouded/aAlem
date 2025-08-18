@@ -14,6 +14,7 @@ from PyQt6.QtCore import Qt, QTimer, pyqtSignal, QThread
 from PyQt6.QtGui import QFont, QAction, QIcon, QPixmap, QTextCharFormat, QColor
 
 class Note:
+    
     """Simple Note class"""
     def __init__(self, id=None, title="", content="", tags="", created_at=None, updated_at=None):
         self.id = id
@@ -188,7 +189,7 @@ class SmartNotesApp(QMainWindow):
         self.setStyleSheet("""
             QMainWindow {
                 background-color: #0a0a0a;
-                color: #00ff41;
+                color: #29C4F8;
             }
         """)
 
@@ -223,7 +224,7 @@ class SmartNotesApp(QMainWindow):
         self.status_bar.setStyleSheet("""
             QStatusBar {
                 background-color: #111111;
-                color: #00ff41;
+                color: #29C4F8;
                 border-top: 1px solid #333333;
                 font-family: 'Courier New', monospace;
                 font-weight: bold;
@@ -231,7 +232,7 @@ class SmartNotesApp(QMainWindow):
             }
         """)
         self.setStatusBar(self.status_bar)
-        self.status_bar.showMessage("⚡ ALEM.exe ONLINE | NEURAL_NET: ACTIVE | QUANTUM_SEARCH: ENABLED")
+        self.status_bar.showMessage("ALEM ONLINE | NEURAL_NET: ACTIVE | QUANTUM_SEARCH: ENABLED")
     
     def create_menu_bar(self):
         """Create the menu bar"""
@@ -239,7 +240,7 @@ class SmartNotesApp(QMainWindow):
         menubar.setStyleSheet("""
             QMenuBar {
                 background-color: #111111;
-                color: #00ff41;
+                color: #29C4F8;
                 border-bottom: 1px solid #333333;
                 font-family: 'Courier New', monospace;
                 font-weight: bold;
@@ -254,7 +255,7 @@ class SmartNotesApp(QMainWindow):
             }
             QMenu {
                 background-color: #111111;
-                color: #00ff41;
+                color: #29C4F8;
                 border: 1px solid #333333;
             }
             QMenu::item {
@@ -303,11 +304,11 @@ class SmartNotesApp(QMainWindow):
         layout = QVBoxLayout(panel)
 
         # Header
-        header = QLabel("⚡ ALEM.exe")
+        header = QLabel("ALEM")
         header.setFont(QFont("Courier New", 18, QFont.Weight.Bold))
         header.setStyleSheet("""
             QLabel { 
-                color: #00ff41; 
+                color: #29C4F8; 
                 padding: 15px; 
                 background-color: #111111; 
                 border: 2px solid #333333;
@@ -330,13 +331,13 @@ class SmartNotesApp(QMainWindow):
                 border: 2px solid #333333;
                 border-radius: 8px;
                 background-color: #111111;
-                color: #00ff41;
+                color: #29C4F8;
                 font-size: 14px;
                 font-family: 'Courier New', monospace;
                 font-weight: bold;
             }
             QLineEdit:focus {
-                border: 2px solid #00ff41;
+                border: 2px solid #29C4F8;
                 background-color: #1a1a1a;
                 color: #00ffff;
             }
@@ -352,8 +353,8 @@ class SmartNotesApp(QMainWindow):
         self.ai_toggle.setStyleSheet("""
             QPushButton {
                 background-color: #001a00;
-                color: #00ff41;
-                border: 2px solid #00ff41;
+                color: #29C4F8;
+                border: 2px solid #29C4F8;
                 padding: 10px 16px;
                 border-radius: 6px;
                 font-weight: bold;
@@ -362,9 +363,9 @@ class SmartNotesApp(QMainWindow):
                 letter-spacing: 1px;
             }
             QPushButton:checked {
-                background-color: #00ff41;
+                background-color: #29C4F8;
                 color: #000000;
-                border: 2px solid #00ff41;
+                border: 2px solid #29C4F8;
             }
             QPushButton:hover {
                 background-color: #003300;
@@ -383,7 +384,7 @@ class SmartNotesApp(QMainWindow):
                 border: 2px solid #333333;
                 border-radius: 8px;
                 background-color: #111111;
-                color: #00ff41;
+                color: #29C4F8;
                 padding: 8px;
                 font-size: 13px;
                 font-family: 'Courier New', monospace;
@@ -393,14 +394,14 @@ class SmartNotesApp(QMainWindow):
                 border-bottom: 1px solid #333333;
                 border-radius: 6px;
                 background-color: #1a1a1a;
-                color: #00ff41;
+                color: #29C4F8;
                 margin: 3px 0px;
                 font-weight: bold;
             }
             QListWidget::item:selected {
                 background-color: #003300;
                 color: #00ffff;
-                border: 1px solid #00ff41;
+                border: 1px solid #29C4F8;
             }
             QListWidget::item:hover {
                 background-color: #2a2a2a;
@@ -489,7 +490,7 @@ class SmartNotesApp(QMainWindow):
             label.setFont(QFont("Courier New", 9, QFont.Weight.Bold))
             label.setStyleSheet("""
                 QLabel { 
-                    color: #00ff41; 
+                    color: #29C4F8; 
                     font-family: 'Courier New', monospace;
                     letter-spacing: 1px;
                     padding: 3px;
@@ -513,7 +514,7 @@ class SmartNotesApp(QMainWindow):
         title_label.setFont(QFont("Courier New", 15, QFont.Weight.Bold))
         title_label.setStyleSheet("""
             QLabel { 
-                color: #00ff41; 
+                color: #29C4F8; 
                 font-family: 'Courier New', monospace;
                 letter-spacing: 2px;
             }
@@ -529,14 +530,14 @@ class SmartNotesApp(QMainWindow):
                 border: 2px solid #333333;
                 border-radius: 8px;
                 font-size: 17px;
-                color: #00ff41;
+                color: #29C4F8;
                 background-color: #111111;
                 font-family: 'Courier New', monospace;
                 font-weight: bold;
                 letter-spacing: 1px;
             }
             QLineEdit:focus {
-                border: 2px solid #00ff41;
+                border: 2px solid #29C4F8;
                 background-color: #1a1a1a;
                 color: #00ffff;
             }
@@ -553,7 +554,7 @@ class SmartNotesApp(QMainWindow):
         tags_label.setFont(QFont("Courier New", 14, QFont.Weight.Bold))
         tags_label.setStyleSheet("""
             QLabel { 
-                color: #00ff41; 
+                color: #29C4F8; 
                 font-family: 'Courier New', monospace;
                 letter-spacing: 2px;
             }
@@ -569,13 +570,13 @@ class SmartNotesApp(QMainWindow):
                 border: 2px solid #333333;
                 border-radius: 8px;
                 font-size: 14px;
-                color: #00ff41;
+                color: #29C4F8;
                 background-color: #111111;
                 font-family: 'Courier New', monospace;
                 font-weight: bold;
             }
             QLineEdit:focus {
-                border: 2px solid #00ff41;
+                border: 2px solid #29C4F8;
                 background-color: #1a1a1a;
                 color: #00ffff;
             }
@@ -591,7 +592,7 @@ class SmartNotesApp(QMainWindow):
         editor_label.setFont(QFont("Courier New", 16, QFont.Weight.Bold))
         editor_label.setStyleSheet("""
             QLabel { 
-                color: #00ff41; 
+                color: #29C4F8; 
                 font-family: 'Courier New', monospace;
                 letter-spacing: 2px;
             }
@@ -608,7 +609,7 @@ class SmartNotesApp(QMainWindow):
         self.bold_btn.setStyleSheet("""
             QPushButton {
                 background-color: #111111;
-                color: #00ff41;
+                color: #29C4F8;
                 border: 1px solid #333333;
                 padding: 8px 12px;
                 border-radius: 6px;
@@ -618,9 +619,9 @@ class SmartNotesApp(QMainWindow):
                 font-family: 'Courier New', monospace;
             }
             QPushButton:checked {
-                background-color: #00ff41;
+                background-color: #29C4F8;
                 color: #000000;
-                border: 1px solid #00ff41;
+                border: 1px solid #29C4F8;
             }
             QPushButton:hover {
                 background-color: #2a2a2a;
@@ -637,7 +638,7 @@ class SmartNotesApp(QMainWindow):
         self.italic_btn.setStyleSheet("""
             QPushButton {
                 background-color: #111111;
-                color: #00ff41;
+                color: #29C4F8;
                 border: 1px solid #333333;
                 padding: 8px 12px;
                 border-radius: 6px;
@@ -647,9 +648,9 @@ class SmartNotesApp(QMainWindow):
                 font-family: 'Courier New', monospace;
             }
             QPushButton:checked {
-                background-color: #00ff41;
+                background-color: #29C4F8;
                 color: #000000;
-                border: 1px solid #00ff41;
+                border: 1px solid #29C4F8;
             }
             QPushButton:hover {
                 background-color: #2a2a2a;
@@ -751,7 +752,7 @@ class SmartNotesApp(QMainWindow):
         size_label = QLabel("SIZE:")
         size_label.setStyleSheet("""
             QLabel { 
-                color: #00ff41; 
+                color: #29C4F8; 
                 font-size: 12px; 
                 font-family: 'Courier New', monospace;
                 font-weight: bold;
@@ -807,7 +808,7 @@ class SmartNotesApp(QMainWindow):
                 border-radius: 8px;
                 padding: 16px;
                 background-color: #0d0d0d;
-                color: #00ff41;
+                color: #29C4F8;
                 line-height: 1.6;
                 font-family: 'Courier New', monospace;
                 font-weight: bold;
@@ -815,7 +816,7 @@ class SmartNotesApp(QMainWindow):
                 selection-color: #00ffff;
             }
             QTextEdit:focus {
-                border: 2px solid #00ff41;
+                border: 2px solid #29C4F8;
                 background-color: #111111;
             }
             QScrollBar:vertical {
@@ -829,20 +830,20 @@ class SmartNotesApp(QMainWindow):
                 min-height: 20px;
             }
             QScrollBar::handle:vertical:hover {
-                background-color: #00ff41;
+                background-color: #29C4F8;
             }
         """)
         layout.addWidget(self.content_editor)
 
         # Save button
-        self.save_btn = QPushButton("⚡ COMMIT_DATA")
+        self.save_btn = QPushButton("COMMIT_DATA")
         self.save_btn.clicked.connect(self.save_note)
         self.save_btn.setEnabled(False)
         self.save_btn.setStyleSheet("""
             QPushButton {
                 background-color: #001a00;
-                color: #00ff41;
-                border: 2px solid #00ff41;
+                color: #29C4F8;
+                border: 2px solid #29C4F8;
                 padding: 16px 32px;
                 border-radius: 8px;
                 font-weight: bold;
@@ -856,7 +857,7 @@ class SmartNotesApp(QMainWindow):
                 border: 2px solid #00ffff;
             }
             QPushButton:pressed:enabled {
-                background-color: #00ff41;
+                background-color: #29C4F8;
                 color: #000000;
             }
             QPushButton:disabled {
@@ -890,7 +891,7 @@ class SmartNotesApp(QMainWindow):
             item.setToolTip(f"Tags: {note.tags}") # Tooltip doesn't need full content
             self.notes_list.addItem(item)
         
-        self.notes_count_label.setText(f"📖 NOTES: {len(note_headers)}")
+        self.notes_count_label.setText(f"NOTES: {len(note_headers)}")
 
 
     # OPTIMIZATION: This is the lazy loading in action.
@@ -913,7 +914,7 @@ class SmartNotesApp(QMainWindow):
                 self.content_editor.setPlainText(note.content)
             
             self.save_btn.setEnabled(False)
-            self.status_bar.showMessage(f"⚡ LOADED: '{note.title}' FROM DATABASE")
+            self.status_bar.showMessage(f"LOADED: '{note.title}' FROM DATABASE")
 
     def new_note(self):
         """Create a new note"""
@@ -940,7 +941,7 @@ class SmartNotesApp(QMainWindow):
         self.load_note_headers() 
         self.save_btn.setEnabled(False)
 
-        self.status_bar.showMessage(f"⚡ DATA_COMMITTED: '{self.current_note.title}'")
+        self.status_bar.showMessage(f"DATA_COMMITTED: '{self.current_note.title}'")
 
     def delete_note(self):
         """Delete the selected note"""
@@ -963,7 +964,7 @@ class SmartNotesApp(QMainWindow):
             self.db.delete_note(note_id)
             self.load_note_headers() 
             self.clear_editor()
-            self.status_bar.showMessage(f"⚡ DATA_PURGED: '{title}'")
+            self.status_bar.showMessage(f"DATA_PURGED: '{title}'")
 
     def clear_editor(self):
         """Clear the editor"""
@@ -994,7 +995,7 @@ class SmartNotesApp(QMainWindow):
         self.refresh_notes_list(results)
 
         search_type = "SEMANTIC" if self.ai_toggle.isChecked() else "KEYWORD"
-        self.status_bar.showMessage(f"⚡ {search_type} SCAN: {len(results)} results for '{query}'")
+        self.status_bar.showMessage(f"{search_type} SCAN: {len(results)} results for '{query}'")
 
     def show_about(self):
         QMessageBox.about(self, "About Alem", 
