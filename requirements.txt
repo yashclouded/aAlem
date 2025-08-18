@@ -3,6 +3,9 @@
 PyQt6>=6.4.0
 numpy>=1.21.0
 
+# Build dependencies
+pyinstaller>=5.0.0
+
 # Optional AI dependencies (for full semantic search)
 sentence-transformers>=2.2.0
 torch>=1.12.0

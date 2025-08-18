@@ -1,13 +1,16 @@
-name: Build EXE with PyInstaller
+name: Build Alem Windows EXE
 
 on:
   push:
     branches:
       - main
+  pull_request:
+    branches:
+      - main
   workflow_dispatch:
 
 jobs:
-  build:
+  build-windows:
     runs-on: windows-latest
     
     steps:
@@ -22,14 +25,59 @@ jobs:
       - name: Install dependencies
         run: |
           pip install -r requirements.txt
-          pip install pyinstaller
 
-      - name: Build EXE
+      - name: Build Windows EXE
         run: |
-          pyinstaller --onefile Alem.py
+          pyinstaller --onefile --windowed --name=Alem --hidden-import=PyQt6.sip --clean --noconfirm Alem.py
 
-      - name: Upload EXE artifact
+      - name: Test EXE creation
+        run: |
+          if (Test-Path "dist/Alem.exe") {
+            Write-Host "Alem.exe successfully created"
+            $size = (Get-Item "dist/Alem.exe").Length / 1MB
+            Write-Host "File size: $([math]::Round($size, 2)) MB"
+          } else {
+            Write-Host "Failed to create Alem.exe"
+            exit 1
+          }
+
+      - name: Upload Windows EXE
         uses: actions/upload-artifact@v4
         with:
-          name: Alem
-          path: dist/*
+          name: Alem-Windows-EXE
+          path: dist/Alem.exe
+          retention-days: 30
+
+  build-cross-platform:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+        
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+
+      - name: Build executable
+        run: |
+          if [ "${{ matrix.os }}" == "macos-latest" ]; then
+            pyinstaller --onefile --windowed --name=Alem-macOS --hidden-import=PyQt6.sip --clean --noconfirm Alem.py
+          else
+            pyinstaller --onefile --name=Alem-Linux --hidden-import=PyQt6.sip --clean --noconfirm Alem.py
+          fi
+
+      - name: Upload executable
+        uses: actions/upload-artifact@v4
+        with:
+          name: Alem-${{ matrix.os }}
+          path: dist/Alem-*
+          retention-days: 30

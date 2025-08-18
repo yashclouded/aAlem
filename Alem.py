@@ -1,6 +1,10 @@
 import sys
 import sqlite3
 import json
+import sys
+import sqlite3
+import os
+from pathlib import Path
 from datetime import datetime
 from typing import List, Dict, Optional
 
@@ -40,9 +44,38 @@ class Note:
 
 class Database:
     """Simple SQLite database for notes"""
-    def __init__(self, db_path="smartnotes.db"):
+    def __init__(self, db_path=None):
+        if db_path is None:
+            db_path = self.get_default_db_path()
         self.db_path = db_path
+        self.ensure_db_directory()
         self.init_db()
+
+    def get_default_db_path(self) -> str:
+        """Get the default database path based on the operating system"""
+        if sys.platform.startswith('win'):
+            # Windows: Use AppData/Local
+            app_data = os.environ.get('LOCALAPPDATA', os.path.expanduser('~'))
+            db_dir = Path(app_data) / 'Alem'
+        elif sys.platform.startswith('darwin'):
+            # macOS: Use Application Support
+            db_dir = Path.home() / 'Library' / 'Application Support' / 'Alem'
+        else:
+            # Linux: Use XDG data directory or ~/.local/share
+            xdg_data = os.environ.get('XDG_DATA_HOME', Path.home() / '.local' / 'share')
+            db_dir = Path(xdg_data) / 'Alem'
+        
+        return str(db_dir / 'smartnotes.db')
+
+    def ensure_db_directory(self):
+        """Ensure the database directory exists"""
+        db_dir = Path(self.db_path).parent
+        try:
+            db_dir.mkdir(parents=True, exist_ok=True)
+        except OSError as e:
+            # Fallback to current directory if we can't create in app data
+            print(f"Warning: Could not create directory {db_dir}, using current directory: {e}")
+            self.db_path = "smartnotes.db"
 
     def init_db(self):
         conn = sqlite3.connect(self.db_path)
@@ -172,7 +205,17 @@ class SmartNotesApp(QMainWindow):
 
     def __init__(self):
         super().__init__()
-        self.db = Database()
+        try:
+            self.db = Database()
+        except Exception as e:
+            QMessageBox.critical(
+                None, 
+                "Database Error", 
+                f"Failed to initialize database:\n{e}\n\nThe application will use a temporary database."
+            )
+            # Fallback to current directory
+            self.db = Database("temp_smartnotes.db")
+        
         self.current_note: Optional[Note] = None # This will hold the one fully loaded note
         self.setup_ui()
         self.load_note_headers() # Load headers, not full notes
@@ -181,6 +224,9 @@ class SmartNotesApp(QMainWindow):
         # Automatically create a new note when app starts
         
         self.new_note()
+        
+        # Show database location in status bar
+        self.status_bar.showMessage(f"ALEM ONLINE | DB: {os.path.dirname(self.db.db_path)} | NEURAL_NET: ACTIVE")
 
     def setup_ui(self):
         self.setWindowTitle("Alem - Light, Fast, Secure")
